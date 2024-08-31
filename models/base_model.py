@@ -8,7 +8,7 @@ import uuid
 
 Base = declarative_base()
 
-time_format = "%Y-%m-%dT%H:%M:%s.%f"
+time_format = "%Y-%m-%dT%H:%M:%S.%f"
 
 class Base_model():
     """Mother models."""
@@ -22,7 +22,9 @@ class Base_model():
         """Initialize base attributes."""
 
         if kwargs:
-            for key, value in keargs.items():
+            for key, value in kwargs.items():
+                if key is '_sa_instance_state':
+                    continue
                 setattr(self, key, value)
             if kwargs.get("created_at", None) and type("created_at") is str:
                 self.created_at = datetime.strptime(self.created_at, time_format)
@@ -45,6 +47,7 @@ class Base_model():
 
         self.updated_at = datetime.utcnow()
         print("saving...")
+        models.storage.new(self)
         models.storage.save()
 
     def __str__(self):
@@ -57,7 +60,7 @@ class Base_model():
         new_dict = self.__dict__
         if 'created_at' in new_dict and type(new_dict['created_at']) is not str:
             new_dict['created_at'] = new_dict['created_at'].strftime(time_format)
-        if 'updated_at' in new_dict:
+        if 'updated_at' in new_dict and type(new_dict['updated_at']) is not str:
             new_dict['updated_at'] = new_dict['updated_at'].strftime(time_format)
 
         return new_dict
@@ -66,4 +69,4 @@ class Base_model():
         """DELETE an object from storage."""
 
         print("good bye")
-        models.storage.delete()
+        models.storage.delete(self)

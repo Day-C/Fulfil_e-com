@@ -31,7 +31,7 @@ class DbStorage():
         password = getenv("FUFIL_USER_PWD")
         database = getenv("FUFIL_DB")
         host = getenv("FUFIL_HOST")
-        print("{} {} {} {}".format(user, password, database, host))
+        #print("{} {} {} {}".format(user, password, database, host))
         #create connection to mysql db with 'mysqldb' driver
         self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
             user, password, host, database), pool_pre_ping=True)
@@ -40,7 +40,7 @@ class DbStorage():
         """add data to storage."""
         self.__session.commit()
 
-    def all(self, cls):
+    def all(self, cls=None):
         """retrive all instances of a class from storage"""
 
         if cls:
@@ -48,19 +48,20 @@ class DbStorage():
         else:
             objs = []
             for clss in classes:
-                objs.append(self.__session.query(classes[clss]).all())
+                result = self.__session.query(classes[clss]).all()
+                for l in range(len(result)):
+                    objs.append(result[l])
         new_dict = {}
         for i in range(len(objs)):
-            for j in range(len(objs[i])):
-                key = objs[i][j].__class__.__name__ + '.' + objs[i][j].id
-                new_dict[key] = objs[i][j]
+            key = objs[i].__class__.__name__ + '.' + objs[i].id
+            new_dict[key] = objs[i]
         return new_dict
 
 
-    def new(self):
+    def new(self, obj):
         """add objects to the current session"""
 
-        self.__session.add()
+        self.__session.add(obj)
 
     def delete(self, obj=None):
         """remove an object from the current session."""
@@ -80,13 +81,14 @@ class DbStorage():
         """rerives a specific object from ccurrent session."""
 
         if cls in classes:
-            obj = self.__session.query(classes[cls]).filter_by(id=id)
-            if ojb:
-                return obj
-            else:
-                return None
-        else:
-            return None
+            objs = self.__session.query(classes[cls]).all()
+            if objs:
+                for j in range(len(objs)):
+                    if objs[j].id == id:
+                        return objs[j]
+    
+        return None
+
     def count(self, cls):
         """count the number of instances of a specific clss in session"""
 

@@ -2,7 +2,7 @@
 """order api handler"""
 import models
 from . import app_views
-from models/user import User
+from models.user import User
 from models.order import Order
 
 from flask import abort, jsonify, request
@@ -60,18 +60,20 @@ def edit_order(order_id):
     order = models.storage.get('order', order_id)
     if order != None:
         if request.headers['Content-Type'] == 'application/json':
-            data = request.gget_json()
-            for key in data.keys():
-                order.__dict__[key] = data[key]
-            updated_order = order
+            new_data = request.get_json()
+            new_order = order
+            for key in new_data.keys():
+                new_order.__dict__[key] = new_data[key]
             order.delete()
+            updated_order = Order(**new_order.to_dict())
             updated_order.save()
+            return jsonify(updated_order.to_dict())
         else:
             abort(400)
     else:
         abort(404)
 
-@app_views.route("/users/<user_id>/order", methods=["POST"])
+@app_views.route("/users/<user_id>/orders", methods=["POST"])
 def create_order(user_id):
     """create a new order"""
 
@@ -79,8 +81,8 @@ def create_order(user_id):
     if user != None:
         if request.headers['Content-Type'] == 'application/json':
             data = request.get_json()
-            if 'products' not in data:
-                abort(400)
+            #if 'products' not in data:
+                #abort(400)
             inst = Order(**data)
             inst.save()
             return jsonify(inst.to_dict()), 201

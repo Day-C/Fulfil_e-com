@@ -3,9 +3,9 @@
 import models
 from . import app_views
 from models.brand import Brand
-from flask import jsonity, abort, request
+from flask import jsonify, abort, request
 
-@app_view.route("/brands")
+@app_views.route("/brands")
 def get_brands():
     """retive all brabds"""
 
@@ -42,13 +42,14 @@ def edit_brand(brand_id):
     brand = models.storage.get('brand', brand_id)
     if brand != None:
         if request.headers['Content-Type'] == 'application/json':
-            data = request.get_json()
-            for key in data.keys():
-                brand.__dict__[key] = data[key]
-            updaed_brand = brand
+            new_data = request.get_json()
+            brand_data = brand
+            for key in new_data.keys():
+                brand_data.__dict__[key] = new_data[key]
             brand.delete()
-            updated_brand.save()
-            return jsonify(updated_brand.to_dict())
+            edited_brand = Brand(**brand_data.to_dict())
+            edited_brand.save()
+            return jsonify(edited_brand.to_dict())
         abort(400)
     abort(404)
 

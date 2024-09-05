@@ -3,7 +3,7 @@
 import models
 from . import app_views
 from models.user import User
-from flask import jsonity, abort, request
+from flask import jsonify, abort, request
 
 @app_views.route("/users")
 def get_users():
@@ -14,7 +14,7 @@ def get_users():
     users_list = []
     for key in users.keys():
         users_list.append(users[key].to_dict())
-    return jsonity(users_list)
+    return jsonify(users_list)
 
 @app_views.route("/users/<user_id>")
 def get_user(user_id):
@@ -33,6 +33,7 @@ def delete_user(user_id):
     user = models.storage.get("user", user_id)
     if user != None:
         user.delete()
+        return jsonify('{}')
     else:
         abort(404)
 
@@ -41,21 +42,20 @@ def edit_user(user_id):
     """make updates to an existing user"""
 
     user = models.storage.get("user", user_id)
-    if user != None:
-        if request.headers['Content-Type'] == 'application/json':
-            data = request.get_json()
-            updt_user = user
-            for key in data.keys():
-                updt_user.__dict__.[key] = data[key]
-            user.delete()
-            updt_user.save()
-            return jsonify(updt_user.to_dict()), 200
-        else:
-            abort(400)
-    else:
+    if user == None:
         abort(404)
+    if request.headers['Content-Type'] != 'application/json':
+        abort(400)
+    data = request.get_json()
+    user_data = user
+    for key in data.keys():
+        user_data.__dict__[key] = data[key]
+    user.delete()
+    inst = User(**user_data.to_dict())
+    inst.save()
+    return jsonify(inst.to_dict())
 
-@app_vewis.route("/users", methods=["POST"])
+@app_views.route("/users", methods=["POST"])
 def create_user():
     """create a new user."""
 
@@ -63,9 +63,9 @@ def create_user():
         data = request.get_json()
         if 'email' not in data:
             abort(400, "Missing Email")
-        if 'password' nor in data:
+        if 'password' not in data:
             abort(400, "Missing Password")
-        inst = user(**data)
+        inst = User(**data)
         inst.save()
         return jsonify(inst.to_dict()), 21
     else:

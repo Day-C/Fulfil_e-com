@@ -2,15 +2,15 @@
 """User api handler"""
 import models
 from . import app_views
-from models.user import User
-from flask import jsonity, abort, request
+from models.product import Product
+from flask import jsonify, abort, request
 
 
 @app_views.route("/products")
 def get_products():
     """retives all products."""
 
-    products = models.storage.all('products')
+    products = models.storage.all('product')
     product_list = []
     for key in products.keys():
         product_list.append(products[key].to_dict())
@@ -34,6 +34,7 @@ def delete_product(product_id):
     product = models.storage.get('product', product_id)
     if product != None:
         product.delete()
+        return jsonify('{}')
     else:
         abort(404)
 
@@ -45,12 +46,13 @@ def edit_product(product_id):
     if product != None:
         if request.headers['Content-Type'] == 'application/json':
             data = request.get_json()
+            new_product = product
             for key in data.keys():
-                product.__dict__[key] = data[key]
-            updated_prod  = product
-            updated_prod.save()
+                new_product.__dict__[key] = data[key]
             product.delete()
-            return jsonify(updated_prod.to_dict())
+            updated_product = Product(**new_product.to_dict())
+            updated_product.save()
+            return jsonify(updated_product.to_dict())
         else:
             abort(400)
     else:
@@ -70,5 +72,6 @@ def create_product():
             abort(404, "Missing img")
         inst = Product(**data)
         inst.save()
+        return jsonify(inst.to_dict()), 201
     else:
         abort(400)

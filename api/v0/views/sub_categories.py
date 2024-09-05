@@ -6,19 +6,19 @@ from models.subcategory import Subcategory
 from flask import abort, jsonify, request
 
 @app_views.route("/categories/<category_id>/subcategories")
-def get_subcategs():
+def get_subcategs(category_id):
     """retrive all subcategories"""
 
     category = models.storage.get('category', category_id)
     if category == None:
         abort(404)
     subcat = models.storage.all('subcategory')
-    subcat = []
+    cat_subcat = []
     for key in subcat.keys():
         if subcat[key].__dict__['category_id'] == category_id:
-            subcat.append(subcat[key].to_dict())
+            cat_subcat.append(subcat[key].to_dict())
 
-    return jsonify(subcat)
+    return jsonify(cat_subcat)
 
 @app_views.route("/subcategories/<subcategory_id>")
 def get_subcateg(subcategory_id):
@@ -40,7 +40,7 @@ def delete_subcateg(subcategory_id):
     else:
         abort(404)
 
-@app_views.route("/subcategorie/<subcategory_id>", methods=["PUT"])
+@app_views.route("/subcategories/<subcategory_id>", methods=["PUT"])
 def edit_subcateg(subcategory_id):
     """modify an existing subcategory."""
 
@@ -48,18 +48,19 @@ def edit_subcateg(subcategory_id):
     if subcategory != None:
         if request.headers['Content-Type'] == 'application/json':
             data = request.get_json()
+            new_sub_cat = subcategory
             for key in data.keys():
-                subcategory.__dict__[key] = data[key]
-            update = subcategory
+                new_sub_cat.__dict__[key] = data[key]
             subcategory.delete()
-            update.save()
-            return jsonify(update.to_dict())
+            updated_sub_categ =  Subcategory(**new_sub_cat.to_dict())
+            updated_sub_categ.save()
+            return jsonify(updated_sub_categ.to_dict())
         else:
-            abort(404)
+            abort(400)
     else:
         abort(404)
 
-@appviews.route("/categories/<category_id>/subcategory", methods=["POST"])
+@app_views.route("/categories/<category_id>/subcategory", methods=["POST"])
 def create_subcateg(category_id):
     """create a new subcategory"""
 
@@ -67,12 +68,12 @@ def create_subcateg(category_id):
     if category != None:
         if request.headers['Content-Type'] == 'application/json':
             data = request.get_json()
-            if 'category_id' not in data:
-                abort(400)
+            data['category_id'] = category_id
             if 'name' not in data:
                 abort(400)
             inst = Subcategory(**data)
             inst.save()
+            return jsonify(inst.to_dict()), 201
         else:
             abort(400)
     else:

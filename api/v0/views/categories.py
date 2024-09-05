@@ -22,7 +22,7 @@ def get_category(category_id):
 
     category = models.storage.get('category', category_id)
     if category != None:
-        return jsonify(categoty.to_dict())
+        return jsonify(category.to_dict())
     else:
         abort(404)
 
@@ -45,12 +45,13 @@ def edit_categ(category_id):
     if category != None:
         if request.headers['Content-Type'] == 'application/json':
             data = request.get_json()
+            categ_data = category
             for key in data.keys():
-                category.__dict__[key] = data[key]
-            updated_categ = category
-            categoey.delete()
-            updated_categ.save()
-            return jsonify(updated_categ.to_dict())
+                categ_data.__dict__[key] = data[key]
+            category.delete()
+            update_categ = Category(**categ_data.to_dict())
+            update_categ.save()
+            return jsonify(update_categ.to_dict())
         else:
             abort(400)
     else:

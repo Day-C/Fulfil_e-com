@@ -11,5 +11,11 @@ import models
 #admin.save()
 #print(admin)
 
-alls = models.storage.get ('user', 'e9fd550a-d7e1-46c8-8367-fb9e953d7460')
+alls = models.storage.all('user')
+for key in alls.keys():
+    print(alls[key].__dict__)
+print(models.storage.count("user"))
+user10 = models.storage.get('user', 'ba8efdd2-fdb2-41af-b0dd-72ebfb175e68')
+user10.delete()
+
 print(models.storage.count("user"))

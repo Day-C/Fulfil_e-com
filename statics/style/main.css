@@ -1,0 +1,215 @@
+/*		header section		*/
+header {
+	display: flex;
+	width: 100%;
+	#background-color: yellow;
+	height: 90%;
+	border: #EEE solid;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+.logo {
+	float: left;
+	width: 80%;
+	margin: 2.5%;
+}
+
+.navs {
+	float: right;
+	width: 300px;
+	margin: 0 1.5%;
+}
+
+.navs ul li {
+	float: right;
+	margin-top: 35px;
+	margin-right: 25px;
+	display: flex;
+	flex-direction: row;
+}
+
+
+/*			cart section			*/
+
+.cart {
+	right: 0;
+	width: 70px;
+	height: 50px;
+	margin: 20px;
+	position: fixed;
+	border-radius: 100px;
+}
+
+/*			filter section				*/
+
+.filters {
+	display: flex;
+	margin-top: 50px;
+	align-items: right;
+	text-align: center;
+}
+
+.filter_options {
+	display: flex;
+	position: relative;
+	border: #EEE solid;
+	border-radius: 50px;
+	margin-left: 30%;
+	margin-top: 25px;
+	width: 400px;
+	height: 50px;
+	justify-content: center;
+}
+
+.filter_options h3 {
+	margin: 20px;
+}
+
+.cat_list, .subcat_list {
+	position: absolute;
+	display: none;
+
+}
+
+
+.category {
+	border-right: #EEE solid;
+	padding-left: 20px;
+}
+
+.category:hover{
+	background-color: #CCC;
+}
+
+.sub_category:hover {
+	background-color: #CCC;
+}
+
+.category:hover .cat_list {
+	display: block;
+}
+
+.sub_category:hover .subcat_list {
+	display: block;
+}
+
+.filters button {
+	height: 50px;
+	width: 150px;
+	margin: 29px;
+}
+
+/*			display section		*/
+
+.display {
+	margin-left: 10%;
+	margin-top: 4%;
+	padding: 10px;
+	height: 350px;
+	width: 70%;
+	border: #EEE solid;
+	display: flex;
+}
+
+.display img {
+	padding: 1px;
+	margin: 0 1.5%;
+	height: 350px;
+	width: 550px;
+}
+
+.description p {
+	border: #EEE solid;
+	margin: 40px;
+}
+
+/*		categories section			*/
+
+.categories {
+	margin: 20px;
+	display: block;
+}
+
+.categ_list {
+	border: 2px solid #ccc;
+	border-radius: 50px;
+	display: flex;
+	padding: 2px;
+}
+
+.categ_list h4 {
+	border: 1px solid #EEE;
+	border-radius: 50px;
+	margin: 20px;
+}
+
+
+/*		authentication forms style 		*/
+
+form {
+	margin-top: 200px;
+	border: 5px solid #CCC;
+	padding: 20px
+}
+
+label {
+	display: block;
+	padding: 7px;
+}
+
+input {
+	display: block;
+	width: 500px;
+}
+
+input[type="submit"] {
+	width: 100px;
+	margin-top: 20px;
+	margin-left: 200px;
+}
+.web_form {
+	margin-bottom: 5%;
+}
+
+.web_form p {
+	margin: 20px;
+}
+
+.categs {
+	display:flex;
+}
+
+
+/* 			product section			*/
+
+article {
+	margin: 0 2.5%;
+	border: 2px solid #CCCCCC;
+	border-radius: 20px;
+	padding: 10px;
+	height: 250px;
+	width: 200px;
+}
+.product_img img{
+	height: 150px;
+	width: 200px;
+}
+
+footer {
+	width: 100%;
+	bottom: 0;
+	height: 90px;
+	position: fixed;
+	background-color: transparent;
+}
+footer p {
+	text-align: center;
+	margin: 20px;
+}

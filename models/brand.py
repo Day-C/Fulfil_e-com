@@ -11,5 +11,5 @@ class Brand(Base_model, Base):
 
     __tablename__ = "brands"
     name = Column(String(60), nullable=False)
-    catetory_id = Column(String(60), ForeignKey("categories.id"), nullable=False)
+    category_id = Column(String(60), ForeignKey("categories.id", ondelete='CASCADE'), nullable=False)
     products = relationship("Product", backref="brand_name")

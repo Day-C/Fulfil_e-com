@@ -23,8 +23,6 @@ class Base_model():
 
         if kwargs:
             for key, value in kwargs.items():
-                if key is '_sa_instance_state':
-                    continue
                 setattr(self, key, value)
             if kwargs.get("created_at", None) and type("created_at") is str:
                 self.created_at = datetime.strptime(self.created_at, time_format)
@@ -62,7 +60,8 @@ class Base_model():
             new_dict['created_at'] = new_dict['created_at'].strftime(time_format)
         if 'updated_at' in new_dict and type(new_dict['updated_at']) is not str:
             new_dict['updated_at'] = new_dict['updated_at'].strftime(time_format)
-
+        if '_sa_instance_state' in new_dict:
+            del new_dict['_sa_instance_state']
         return new_dict
 
     def delete(self):

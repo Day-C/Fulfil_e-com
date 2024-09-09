@@ -9,6 +9,6 @@ class Order(Base_model, Base):
     """define order attributes."""
 
     __tablename__ = "orders"
-    user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
+    user_id = Column(String(60), ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
     products = relationship("Product", backref="order")
     order_status = Column(String(20), default="not_approved")

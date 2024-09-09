@@ -9,6 +9,6 @@ class Subcategory(Base_model, Base):
     """define address attributes"""
 
     __tablename__ = "subcategories"
-    category_id = Column(String(60), ForeignKey("categories.id"), nullable=False)
+    category_id = Column(String(60), ForeignKey("categories.id", ondelete='CASCADE'), nullable=False)
     name = Column(String(82), nullable=False)
     products = relationship('Product', backref="subcategory")

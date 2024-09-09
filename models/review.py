@@ -9,6 +9,6 @@ class Review(Base_model, Base):
     """Define review structure"""
 
     __tablename__ = "reviews"
-    user_id = Column(String(60), ForeignKey("users.id"), nullable=True)
-    product_id = Column(String(60), ForeignKey("products.id"), nullable=True)
+    user_id = Column(String(60), ForeignKey("users.id", ondelete='CASCADE'), nullable=True)
+    product_id = Column(String(60), ForeignKey("products.id", ondelete='CASCADE'), nullable=True)
     text = Column(String(1022), nullable=False)

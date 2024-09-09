@@ -14,7 +14,7 @@ from models.brand import Brand
 from os import getenv
 
 
-classes = {"user": User, "product": Product, "review": Review, "order": Order, "category": Category, "subcategory": Subcategory, "delivery": Delivery}
+classes = {"user": User, "product": Product, "review": Review, "order": Order, "category": Category, "subcategory": Subcategory, "delivery": Delivery, 'brand': Brand}
 
 
 class DbStorage():
@@ -35,6 +35,9 @@ class DbStorage():
         #create connection to mysql db with 'mysqldb' driver
         self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
             user, password, host, database), pool_pre_ping=True)
+
+        if getenv('END_DB') == 'yes':
+            Base.metadata.drop_all(self.__engine)
 
     def save(self):
         """add data to storage."""
@@ -68,6 +71,7 @@ class DbStorage():
 
         if obj:
             self.__session.delete(obj)
+            self.save()
 
     def reload(self):
         """creates all tables and session"""
@@ -94,9 +98,14 @@ class DbStorage():
 
         if cls in classes:
             i = 0
-            objs = self.__session.query(classes[cls]).all()
+            objs = self.all(cls)
             for obj in range(len(objs)):
                 i += 1;
             return i
         else:
             return 0
+
+    def close(self):
+        """Close or end session to db"""
+
+        self.__session.close()

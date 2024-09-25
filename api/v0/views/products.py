@@ -75,3 +75,28 @@ def create_product():
         return jsonify(inst.to_dict()), 201
     else:
         abort(400)
+
+#get producs of a specific category
+@app_views.route('/subcategories/products')
+def get_subcat_products():
+    """Retrive all products of a subcategory."""
+
+    #get a request with the ids of the
+    print('outside')
+    if request.headers['Content-Type'] == 'application/json':
+        print("am in")
+        data = request.get_json()
+        id_list = []
+        for key in data.keys():
+            id_list.append(data[key])
+
+        all_products = models.storage.all('product')
+        chosen_pro = []
+
+        for key in all_products.keys():
+            if all_products[key].sub_category in id_list:
+                chosen_pro.append(all_products[key].to_dict())
+
+        return jsonify(chosen_pro)
+    else:
+        abort(404)

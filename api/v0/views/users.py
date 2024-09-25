@@ -67,6 +67,6 @@ def create_user():
             abort(400, "Missing Password")
         inst = User(**data)
         inst.save()
-        return jsonify(inst.to_dict()), 21
+        return jsonify(inst.to_dict()), 201
     else:
         abort(404)

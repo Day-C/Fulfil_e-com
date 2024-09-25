@@ -1,0 +1,505 @@
+/*		header section		*/
+header {
+	display: flex;
+	width: 100%;
+	#background-color: yellow;
+	height: 90%;
+	border: #EEE solid;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+#alert_box {
+	margin: 0 35%;
+	width: 150px;
+	height: 30px;
+	background-color: #CCC;
+	border: 2px solid #CCCCCCCC;
+	border-radius: 30px;
+	z-index: 10%;
+}
+
+#alert_box div {
+	padding: 5px;
+}
+
+.logo {
+	float: left;
+	width: 80%;
+	margin: 2.5%;
+}
+
+.navs {
+	float: right;
+	width: 300px;
+	margin: 0 1.5%;
+}
+
+.navs ul li {
+	float: right;
+	margin-top: 35px;
+	margin-right: 25px;
+	display: flex;
+	flex-direction: row;
+}
+
+
+/*			cart section			*/
+.cart {
+	width: 100%;
+	height: 100%;
+	z-index: 11;
+}
+
+.cart button {
+	right: 0;
+	width: 70px;
+	height: 50px;
+	margin: 20px;
+	position: fixed;
+	border-radius: 100px;
+}
+
+.count {
+	padding: 0;
+	margin: 0;
+	border: #CCC solid;
+	border-radius: 60px;
+	background-color: red;
+}
+
+.cart_container {
+	display: none;
+	position: fixed;
+	margin-left: 40%;
+	margin-top: 10%;
+	width: 300px;
+	height: 400px;
+	overflow: hidden;
+	overflow-y: scroll;
+	background-color: rgb(53, 57, 53);
+	z-index: 11%;
+}
+/*
+.show_cart {
+	display: flex;
+	margin: 0;
+}
+
+.show_cart p {
+	margin: 0;
+	padding: 20px;
+*/
+
+.cart_display table {
+	color: white;
+}
+
+.order_now {
+	font-size: 25px;
+	background: green;
+}
+/*			filter section				*/
+
+.filters {
+	display: flex;
+	margin-top: 50px;
+	align-items: right;
+	text-align: center;
+}
+
+.filter_options {
+	display: flex;
+	position: relative;
+	border: #EEE solid;
+	border-radius: 50px;
+	margin-left: 30%;
+	margin-top: 25px;
+	width: 400px;
+	height: 50px;
+	justify-content: center;
+}
+
+.filter_options h3 {
+	margin: 20px;
+}
+
+/*
+.cat_list, .subcat_list {
+	position: absolute;
+	display: none;
+
+}
+
+
+.category {
+	position: relative;
+	border-right: #EEE solid;
+	padding-left: 20px;
+	z-index: 10%;
+}
+*/
+.category, .sub_category {
+	float: left;
+	width: 50%;
+	margin: 5px;
+}
+
+.cat_list, .subcat_list {
+	background-color: #cccccc;
+	display: none;
+}
+.cat_list ul li, .subcat_list ul li {
+	display: flex;
+	width: 20%;
+}
+
+.cat_list ul, .subcat_list ul {
+	padding: 0;
+	margin: 0;
+}
+.cat_list li, .subcat_list li {
+	padding: 5px;
+	border-bottom: 1px solid #ccc;
+}
+
+.category:hover, .sub_category:hover {
+	background-color: #CCC;
+}
+
+.category:hover .cat_list {
+	display: block;
+}
+
+.sub_category:hover .subcat_list {
+	display: block;
+}
+
+.filters button {
+	height: 50px;
+	width: 150px;
+	margin: 29px;
+}
+
+/*			display section		*/
+
+.display {
+	display: flex;
+}
+
+.display_imgs {
+	width: 800px;
+	height: 400px;
+	margin: 50px;
+	border: #EEE solid;
+	overflow: hidden;
+}
+
+/*
+.display img {
+	padding: 1px;
+	margin: 0 1.5%;
+	height: 350px;
+	width: 550px;
+}
+
+.display_imgs ul {
+	width: 750px;
+	height: 400px;
+	display: inline-block;
+}*/
+.img_list {
+	display: block;
+	width: 6000px;
+	height: 400px;
+	margin: 0;
+	padding: 0;
+}
+
+.img_list li {
+	float: left;
+	list-style-type: none;
+	width: 1200px;
+	height: 400px;
+}
+
+.img_list li img {
+	width: 800px;
+	height: 400px;
+}
+
+.desc {
+	width: 30%;
+	height: 50px;
+	padding: 5%;
+}
+
+.desc p {
+	background-color: #CCCCCCCC;
+	border: 5px solid #CCC;
+	border-radius: 30px;
+	padding: 5%;
+}
+
+/*		categories section			*/
+
+.categories {
+	margin: 20px;
+	display: block;
+}
+
+.categ_list {
+	border: 2px solid #ccc;
+	border-radius: 50px;
+	display: flex;
+	padding: 2px;
+	overflow: hidden;
+	overflow-x: scroll;
+}
+
+.categ_list h4 {
+	border: 1px solid #EEE;
+	border-radius: 50px;
+	margin: 20px;
+}
+
+
+/*		authentication forms style 		*/
+
+.product_logo {
+	font-size: 30px;
+	margin: 0 40%;
+	margin-top: 100px;
+}
+
+form {
+	margin-top: 10px;
+	border: 5px solid #CCC;
+	padding: 20px
+}
+
+label {
+	display: block;
+	padding: 7px;
+}
+
+input {
+	display: block;
+	width: 500px;
+}
+
+input[type="submit"] {
+	width: 100px;
+	margin-top: 20px;
+	margin-left: 200px;
+}
+.web_form {
+	margin-bottom: 5%;
+}
+
+.web_form p {
+	margin: 20px;
+}
+
+.categs {
+	display:flex;
+}
+
+
+/* 			product section			*/
+
+article {
+	margin: 0 2.5%;
+	border: 2px solid #CCCCCC;
+	border-radius: 20px;
+	padding: 10px;
+	height: 250px;
+	width: 200px;
+}
+
+.product_img img{
+	height: 150px;
+	width: 200px;
+}
+
+.e_com {
+	display: flex;
+	overflow: hidden;
+	overflow-x: scroll;
+}
+
+.e_com div {
+	margin-bottom: 0;
+	padding: 0;
+}
+
+.e_com ul {
+	display: flex;
+	padding: 0;
+}
+
+.e_com ul li {
+	padding: 0;
+	margin: 0;
+	margin-right: 20px;
+}
+
+.quantity {
+	display: flex;
+	margin: 10px;
+}
+
+.quantity input[type="number"] {
+	width: 30px;
+	height: 15px;
+}
+/** Admin page style
+ */
+
+.actions {
+	margin-top: 5%;
+	display: flex;
+	background-color: black;
+	margin-bottom: 50px;
+	background-color: #EEE;
+}
+
+.add, .edit, .delete {
+	width: 30%;
+}
+
+.add:hover, .edit:hover, .delete:hover {
+	background-color: #CCC
+}
+
+.options {
+	display: none;
+	width: 10%;
+	background-color: #CCC;
+}
+.options ul {
+	padding: 0;
+	margin: 0;
+}
+
+.options ul li {
+	display: flex;
+	margin: 20%;
+}
+
+.title {
+	margin-left: 20%;
+}
+
+.show {
+	border: #EEE solid;
+	background-color: #CCC;
+}
+
+.show table {
+	table-layout: fixed;
+	width: 100%;
+	border-collapse: collapse;
+	border: 3px solid #CCCCCC
+}
+
+/** landing page*/
+
+.view h1 {
+	padding: 0 20%;
+	margin-top: 5%;
+	font-size: 40px;
+}
+.view h3 {
+	padding: 0 25%;
+
+}
+
+.info {
+	#border: 5px solid #CCCCCC;
+	display: block;
+	background-color: #CCC;
+	#padding: 0 20%;
+	width: auto;
+	height: 590px;
+	margin-bottom: 0;
+}
+
+.description {
+	margin: 0 20%;
+	border: 5px solid #CCCCCC;
+	background-color: #ccc;
+}
+
+.description p {
+	padding: 5%;
+	width: 600px;
+	height: 180px;
+	font-size: 20px;
+}
+
+.more {
+	display: flex;
+	padding: 0;
+}
+
+.benefit {
+	margin: 5%;
+	border: 2px solid #ffffff;
+	width: 45%;
+	padding: 2%;
+}
+
+.why {
+	margin: 5%;
+	border: 2px solid #FFFFFF;
+	width: 45%;
+	padding: 3%;
+}
+
+.call_to_action {
+	display: flex;
+	background-color: #CCCCCC;
+	margin-top: 50px;
+	padding: 5%;
+}
+
+.call_to_action div {
+	margin-left: 18%;
+}
+
+.action1, .action2, .action3 {
+	padding: 10px;
+	margin-left: 10%;
+	background-color: black;
+	border-radius: 50px;
+	
+}
+
+footer {
+	width: 100%;
+	bottom: 0;
+	height: 90px;
+	background-color: transparent;
+}
+
+/** about style*/
+.about_us {
+	font-size: 25px;
+	padding: 13px;
+}
+
+.about_us h2 {
+	text-align: center;
+}
+
+
+footer p {
+	text-align: center;
+	margin: 20px;
+}

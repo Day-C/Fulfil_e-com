@@ -13,4 +13,4 @@ from .deliveries import *
 from .sub_categories import *
 from .reviews import *
 from .products import *
-from authenticate import *
+from .authenticate import *
